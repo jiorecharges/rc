@@ -33,9 +33,34 @@
     .plan-btn:hover {background: #144aa8;}
     .badge {background: #cfe3fc; color: #0a5cd8; font-weight: bold; padding: 0.2em 0.6em; border-radius: 6px; font-size: 0.85em; position: absolute; top: 8px; right: 12px; z-index: 2;}
     /* Modal styles */
-    .modal-bg {display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,92,216,0.15); z-index: 9999; justify-content: center; align-items: center;}
-    .modal-bg.active {display: flex;}
-    .modal {background: #fff; padding: 2em 1.3em 1.1em 1.3em; border-radius: 18px; box-shadow: 0 4px 30px rgba(10,92,216,0.17); max-width: 330px; width: 95vw; text-align: center; position: relative; animation: fadeIn 0.27s;}
+    .modal-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(10,92,216,0.15);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      /* Center children (the modal) */
+    }
+    .modal-bg.active {
+      display: flex;
+    }
+    .modal {
+      background: #fff;
+      padding: 2em 1.3em 1.1em 1.3em;
+      border-radius: 18px;
+      box-shadow: 0 4px 30px rgba(10,92,216,0.17);
+      max-width: 330px;
+      width: 95vw;
+      text-align: center;
+      position: relative;
+      animation: fadeIn 0.27s;
+      /* Ensure modal is centered in parent flex */
+      margin: 0;
+      /* Remove accidental margin that might shift it */
+    }
     @keyframes fadeIn {from { opacity: 0; transform: scale(0.95);} to { opacity: 1; transform: scale(1);}}
     .modal-step {display: none;}
     .modal-step.active {display: block;}
@@ -214,7 +239,7 @@
       </div>
       <!-- Step 2: QR Screen with Countdown -->
       <div class="modal-step" id="modalStep2">
-        <div class="modal-title">Pay Now (Live QR)</dDIiv>
+        <div class="modal-title">Pay Now (Live QR)</div>
         <div class="modal-countdown" id="countdown">05:00</div>
         <div class="modal-warning">#Don't pay on old QR, pay on LIVE!<br>Here is my QR:</div>
         <img src="qr.png" alt="Live QR Code" class="qr-img">
